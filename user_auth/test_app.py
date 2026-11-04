@@ -1,4 +1,3 @@
-```python
 import unittest
 from app import app, db
 from models import User
@@ -34,4 +33,3 @@ class UserAuthTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-```
