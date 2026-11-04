@@ -1,3 +1,4 @@
+```python
 import unittest
 from app import app, db
 from models import User
@@ -19,7 +20,9 @@ class UserAuthTestCase(unittest.TestCase):
     def test_register_user(self):
         response = self.app.post('/register', json={'username': 'test1', 'password': 'test1'})
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(User.query.count(), 1)
+
+        with app.app_context():
+            self.assertEqual(User.query.count(), 1)
 
     def test_login_user(self):
         self.app.post('/register', json={'username': 'test1', 'password': 'test1'})
@@ -31,3 +34,4 @@ class UserAuthTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+```
