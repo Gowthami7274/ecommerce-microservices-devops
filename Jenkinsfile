@@ -1,6 +1,12 @@
-
+```groovy
 pipeline {
     agent any
+
+    environment {
+        UV_NO_CONFIG = '1'
+        UV_CACHE_DIR = '/var/lib/jenkins/.cache/uv'
+        UV = '/var/lib/jenkins/.local/bin/uv'
+    }
 
     stages {
         stage('Checkout') {
@@ -11,7 +17,7 @@ pipeline {
 
         stage('Python Version') {
             steps {
-                sh 'python3 --version'
+                sh '$UV run --python 3.12 python --version'
             }
         }
 
@@ -21,8 +27,11 @@ pipeline {
                     for service in user_auth product_management order_processing
                     do
                         echo "Installing dependencies for $service"
-                        python3 -m venv $service/venv
+
+                        $UV venv --python 3.12 $service/venv
+
                         $service/venv/bin/pip install -r $service/requirements.txt
+
                         $service/venv/bin/pip install pytest
                     done
                 '''
@@ -35,6 +44,7 @@ pipeline {
                     for service in user_auth product_management order_processing
                     do
                         echo "Running tests for $service"
+
                         $service/venv/bin/python -m pytest $service/test_app.py -v
                     done
                 '''
@@ -46,8 +56,10 @@ pipeline {
         success {
             echo 'CI pipeline completed successfully!'
         }
+
         failure {
             echo 'CI pipeline failed. Check the console output.'
         }
     }
 }
+```
