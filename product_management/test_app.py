@@ -17,23 +17,27 @@ class ProductManagementTestCase(unittest.TestCase):
             db.drop_all()
 
     def test_create_product(self):
-    response = self.app.post('/products', json={
-        'name': 'Test Product',
-        'description': 'Test Description',
-        'price': 10.0,
-        'quantity': 100
-    })
-    self.assertEqual(response.status_code, 201)
+        response = self.app.post('/products', json={
+            'name': 'Test Product',
+            'description': 'Test Description',
+            'price': 10.0,
+            'quantity': 100
+        })
+        self.assertEqual(response.status_code, 201)
 
-    with app.app_context():
-        self.assertEqual(Product.query.count(), 1)
+        with app.app_context():
+            self.assertEqual(Product.query.count(), 1)
+
     def test_get_product(self):
-        self.app.post('/products', json={'name': 'Test Product', 'description': 'Test Description', 'price': 10.0, 'quantity': 100})
+        self.app.post('/products', json={
+            'name': 'Test Product',
+            'description': 'Test Description',
+            'price': 10.0,
+            'quantity': 100
+        })
         response = self.app.get('/products/1')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['name'], 'Test Product')
-
-    # Can add more tests here...
 
 if __name__ == '__main__':
     unittest.main()
