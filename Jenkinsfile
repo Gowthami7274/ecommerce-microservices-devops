@@ -23,6 +23,7 @@ pipeline {
                         echo "Installing dependencies for $service"
                         python3 -m venv $service/venv
                         $service/venv/bin/pip install -r $service/requirements.txt
+                        $service/venv/bin/pip install pytest
                     done
                 '''
             }
