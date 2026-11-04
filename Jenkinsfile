@@ -27,7 +27,7 @@ pipeline {
                     do
                         echo "Installing dependencies for $service"
 
-                        $UV venv --python 3.12 $service/venv
+                        $UV venv --clear --python 3.12 $service/venv
 
                         $service/venv/bin/pip install -r $service/requirements.txt
 
