@@ -29,9 +29,9 @@ pipeline {
 
                         $UV venv --clear --python 3.12 $service/venv
 
-                        $service/venv/bin/pip install -r $service/requirements.txt
+                        $UV pip install --python $service/venv/bin/python -r $service/requirements.txt
 
-                        $service/venv/bin/pip install pytest
+                        $UV pip install --python $service/venv/bin/python pytest
                     done
                 '''
             }
