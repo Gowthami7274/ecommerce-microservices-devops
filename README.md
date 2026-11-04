@@ -198,3 +198,40 @@ python -m unittest discover tests
 ## Authors
 
 - **Narendra Ravuri** - [GitHub](https://github.com/NarendraRavuri/)
+---
+
+## DevOps and Source Control Management
+
+This project uses Git and GitHub for source code
+management and version control.
+
+### Branching Strategy
+
+The following branches are maintained:
+
+- main: Contains stable application code.
+- develop: Used for integrating development changes.
+- feature/user-service: Used for User Service changes.
+- feature/product-service: Used for Product Service changes.
+- feature/order-service: Used for Order Service changes.
+
+### Commit and Pull Request Workflow
+
+1. Developers create feature branches from develop.
+2. Changes are made and committed using Git.
+3. Feature branches are pushed to GitHub.
+4. Pull requests are created to merge changes into develop.
+5. Changes are reviewed before merging.
+
+### Jenkins Integration
+
+GitHub is integrated with Jenkins using webhooks.
+Whenever code changes are pushed to the configured
+branch, Jenkins is triggered to execute the pipeline.
+
+### Security Practices
+
+- Sensitive credentials are not committed to GitHub.
+- Private keys and environment files are excluded
+  using .gitignore.
+- Jenkins Credentials are used to manage secrets.
