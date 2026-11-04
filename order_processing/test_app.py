@@ -28,12 +28,12 @@ class OrderProcessingTestCase(unittest.TestCase):
 
         with requests_mock.Mocker() as m:
             m.get(
-                'http://product_management:5001/products/1',
+                'http://localhost:9002/products/1',
                 json={'id': 1, 'quantity': 10},
                 status_code=200
             )
             m.put(
-                'http://product_management:5001/products/1',
+                'http://localhost:9002/products/1',
                 json={'quantity': 9},
                 status_code=200
             )
