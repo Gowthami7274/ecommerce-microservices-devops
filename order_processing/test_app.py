@@ -18,27 +18,26 @@ class OrderProcessingTestCase(unittest.TestCase):
             db.drop_all()
 
     def test_create_order(self):
-    with requests_mock.Mocker() as m:
-        m.get(
-            'http://product_management:5001/products/1',
-            json={'id': 1, 'quantity': 10},
-            status_code=200
-        )
-        m.put(
-            'http://product_management:5001/products/1',
-            json={'quantity': 9},
-            status_code=200
-        )
+        with requests_mock.Mocker() as m:
+            m.get(
+                'http://product_management:5001/products/1',
+                json={'id': 1, 'quantity': 10},
+                status_code=200
+            )
+            m.put(
+                'http://product_management:5001/products/1',
+                json={'quantity': 9},
+                status_code=200
+            )
 
-        response = self.app.post(
-            '/orders',
-            json={'product_id': 1, 'quantity': 1}
-        )
-        self.assertEqual(response.status_code, 201)
+            response = self.app.post(
+                '/orders',
+                json={'product_id': 1, 'quantity': 1}
+            )
+            self.assertEqual(response.status_code, 201)
 
-        with app.app_context():
-            self.assertEqual(Order.query.count(), 1)
-    # Can add more tests here...
+            with app.app_context():
+                self.assertEqual(Order.query.count(), 1)
 
 if __name__ == '__main__':
     unittest.main()
