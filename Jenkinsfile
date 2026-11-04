@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -20,7 +21,8 @@ pipeline {
                     for service in user_auth product_management order_processing
                     do
                         echo "Installing dependencies for $service"
-                        python3 -m pip install -r $service/requirements.txt
+                        python3 -m venv $service/venv
+                        $service/venv/bin/pip install -r $service/requirements.txt
                     done
                 '''
             }
@@ -32,7 +34,7 @@ pipeline {
                     for service in user_auth product_management order_processing
                     do
                         echo "Running tests for $service"
-                        python3 -m pytest $service/test_app.py -v
+                        $service/venv/bin/python -m pytest $service/test_app.py -v
                     done
                 '''
             }
